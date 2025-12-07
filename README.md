@@ -1,83 +1,60 @@
 # NU-information-Exchange-System-
-Campus Messaging System in C++
+A  campus messaging system built in C++ that combines TCP and UDP protocols for reliable communication and real-time notifications. Perfect for learning network programming, multi-threading, and building a scalable messaging server.
 
-This project is a multi-campus messaging system built in C++, leveraging both TCP and UDP protocols. It allows campuses to communicate securely and efficiently in real time. The system demonstrates key concepts in network programming, multi-threading, and client-server architecture.
+About
+
+This project simulates a simple campus communication network. The server acts as the central hub, handling authentication, message routing, and broadcast notifications. Each client represents a campus that can send messages to other campuses and receive real-time updates.
+
+The system demonstrates how TCP can be used for reliable messaging, while UDP handles lightweight heartbeats and broadcast messages efficiently.
 
 Features
 
-Authentication: Each campus logs in with a unique name and password. The server validates credentials before allowing communication.
+Secure Authentication: Campuses log in with unique credentials before sending messages.
 
-Reliable Messaging with TCP: Messages are delivered reliably between campuses using TCP. The server routes messages based on campus names.
+Reliable Messaging with TCP: Messages are routed safely and reliably between campuses.
 
-Heartbeat Monitoring with UDP: Clients send periodic UDP heartbeats to inform the server they are online. The server keeps an updated list of active campuses.
+Heartbeat Monitoring with UDP: Clients send periodic signals so the server knows who is online.
 
-Admin Console: Server administrators can broadcast messages to all connected campuses.
+Admin Console: Broadcast messages to all connected campuses and view active clients.
 
-Multi-threaded Design: The server handles multiple clients simultaneously, and the client runs multiple threads to manage messaging, heartbeats, and broadcasts concurrently.
+Multi-threaded Design: Clients and server can handle multiple tasks simultaneously.
 
-Cross-Platform Friendly: Works on Linux with minimal adjustments needed for Windows using Winsock.
+How it Works
 
-System Architecture
-Client (Campus)                Server (Central Hub)
------------------               -----------------
-- Console UI                    - Authenticates clients
-- TCP connection -> Server      - Routes messages
-- UDP heartbeat -> Server       - Maintains active clients list
-- Receives TCP messages         - Handles admin console
-- Receives UDP broadcasts       - Broadcasts messages
+Server: Listens for TCP connections, authenticates clients, keeps track of TCP sockets and UDP addresses. Routes messages between campuses and allows admins to broadcast messages to all clients.
 
+Client: Connects to the server using TCP, authenticates, and runs three threads for:
 
-TCP ensures reliable communication for messages.
+Listening for TCP messages
 
-UDP is used for heartbeat and broadcast messages, making it lightweight and efficient.
+Sending periodic UDP heartbeats
 
-Multi-threading allows concurrent handling of multiple clients and messages.
+Receiving UDP broadcast messages
 
-How to Run
-
-Compile the server and client (Linux example):
-
+Users interact via a simple console menu to send messages or quit.
+Compile Server:
 g++ -std=c++17 server.cpp -o server -pthread
-g++ -std=c++17 client.cpp -o client -pthread
-
-
-Start the server:
-
 ./server
-
-
-Start a client:
-
+Compile Client:
+g++ -std=c++17 client.cpp -o client -pthread
 ./client <CampusName> <Password> <ServerIP>
-
-
-Example:
-
-./client Lahore NU-LHR-123 127.0.0.1
-
-
-Client Menu Options:
-
-Send a message to another campus
-
-Quit the client
-
-Admin Commands on Server Console:
-
-broadcast <message> – send a message to all connected campuses
-
-list – view connected campuses and known UDP endpoints
-
 Learning Outcomes
 
-Real-world understanding of TCP vs UDP usage
+Understanding TCP vs UDP communication and when to use each
 
-Multi-threaded programming for concurrent network operations
+Multi-threaded application design
 
-Client-server architecture design
+Building a scalable server capable of handling multiple clients
 
-Handling authentication, message routing, and server broadcasts
+Real-world experience with sockets and network programming in C++
 
-LinkedIn One-Paragraph Description
+Future Improvements
 
-I recently built a multi-campus messaging system in C++ that combines TCP for reliable messaging and UDP for lightweight server notifications. The system allows campuses to authenticate, exchange messages, and receive real-time broadcast updates from administrators. Through this project, I gained hands-on experience in network programming, multi-threading, and client-server architecture, while learning how to integrate multiple communication protocols efficiently for a real-world application.
+Persistent message queues for offline campuses
+
+GUI client for better user interaction
+
+Encryption for secure message transmission
+
+Logging and analytics for server activity
+
